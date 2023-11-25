@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-export const meta: MetaFunction = () => [{
+export const MetaFunctions = () => [{
   charset: "utf-8",
   title: "New Remix App",
   viewport: "width=device-width,initial-scale=1",
