@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react";
+
 export function headers() {
   console.log(
     "This is an example of how to set caching headers for a route, feel free to change the value of 60 seconds or remove the header"
@@ -12,36 +14,16 @@ export function headers() {
 export default function Index() {
   return (
     <main style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer noopener"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer noopener"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer noopener"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+
+    <div className="mx-auto mt-16 max-w-7xl text-center">
+      <Link
+        to="/signature"
+        className="text-xl text-blue-600 underline"
+      >
+        Generate a Signature!
+      </Link>
+    </div>
+
     </main>
   );
 }
