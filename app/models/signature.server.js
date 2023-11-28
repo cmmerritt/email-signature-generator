@@ -1,8 +1,13 @@
 export async function getSignatures() {
-  return [
+  const response = await fetch(
+    `${process.env.API_NINJAS_QUOTES_BASE_PATH}/`,
     {
-      slug: "my-signature",
-      title: "My Signature",
-    },
-  ];
+      headers: {
+        "X-Api-Key": `${process.env.API_NINJAS_KEY}`,
+      },
+    }
+  );
+  const signatures = await response.json();
+  console.log("signatures from loader", signatures);
+  return { signatures };
 }
