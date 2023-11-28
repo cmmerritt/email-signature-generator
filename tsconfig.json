@@ -1,8 +1,8 @@
 {
   "include": [
-    "remix.env.d.js",
-    "**/*.js",
-    "**/*.jsx", "app/entry.server.jsx", "app/entry.client.jsx", "app/routes/_index.jsx", "app/root.jsx", "globals.d.js", "server.js",
+    "remix.env.d.ts",
+    "**/*.ts",
+    "**/*.tsx", "app/entry.server.jsx", "app/entry.client.jsx", "app/routes/_index.jsx", "app/root.jsx", "globals.d.js", "server.ts",
   ],
   "compilerOptions": {
     "lib": [
