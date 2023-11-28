@@ -1,6 +1,8 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
+const authors = ['Buddha', 'Mark Twain', 'Marilyn Monroe', 'Albert Einstein', 'Susan B. Anthony', 'Socrates', 'Leonardo da Vinci', 'Benjamin Franklin', 'Martin Luther King, Jr.', 'Abraham Lincoln', 'Oscar Wilde', 'Kurt Vonnegut', 'Virginia Woolf', 'Winston Churchill', 'Friedrich Nietzsche', 'Marie Antoinette', 'Gandalf'];
+
 export const loader = async () => {
   const quoteRes = await fetch(
     `${process.env.API_NINJAS_QUOTES_BASE_PATH}/`,
