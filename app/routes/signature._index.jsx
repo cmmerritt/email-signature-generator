@@ -1,7 +1,9 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-const authors = ['Buddha', 'Mark Twain', 'Marilyn Monroe', 'Albert Einstein', 'Susan B. Anthony', 'Socrates', 'Leonardo da Vinci', 'Benjamin Franklin', 'Martin Luther King, Jr.', 'Abraham Lincoln', 'Oscar Wilde', 'Kurt Vonnegut', 'Virginia Woolf', 'Winston Churchill', 'Friedrich Nietzsche', 'Marie Antoinette', 'Gandalf'];
+const authors = ['Buddha', 'Mark Twain', 'Harriet Tubman', 'Marilyn Monroe', 'Albert Einstein', 'Wayne Gretzky', 'Wayne Gretzky ~Michael Scott', 'Susan B. Anthony', 'John F. Kennedy, Jr.', 'Helen Keller', 'Shaquille O\'Neal', 'Lao Tzu', 'Socrates', 'Leonardo da Vinci', 'Benjamin Franklin', 'Pope John Paul II', 'Beyonce', 'Martin Luther King, Jr.', 'Abraham Lincoln', 'W. E. B. DuBois', 'Oscar Wilde', 'Walt Disney', 'Kurt Vonnegut', 'Confucius', 'Maya Angelou', 'William Shakespeare', 'Virginia Woolf', 'Winston Churchill', 'Ayn Rand', 'Friedrich Nietzsche', 'Marie Antoinette', 'Barack Obama', 'Gandalf', 'Snoop Dogg'];
+
+let randomAuthor = authors[Math.floor(Math.random()*authors.length)];
 
 export const loader = async () => {
   const quoteRes = await fetch(
@@ -12,22 +14,14 @@ export const loader = async () => {
       },
     }
   );
-  const authorRes = await fetch(
-    `${process.env.API_NINJAS_QUOTES_BASE_PATH}/`,
-    {
-      headers: {
-        "X-Api-Key": `${process.env.API_NINJAS_KEY}`,
-      },
-    }
-  );
+
   return json({
-    quoteRes: await quoteRes.json(),
-    authorRes: await authorRes.json()
+    quoteRes: await quoteRes.json()
   });
 };
 
 export default function Signature() {
-  const { quoteRes, authorRes } = useLoaderData();
+  const { quoteRes } = useLoaderData();
   return (
     <main>
       <h1>Your New Email Signature</h1>
@@ -38,11 +32,7 @@ export default function Signature() {
           </div>
         ))}
 
-        {authorRes.map((author) => (
-          <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
-              ~{author.author}
-          </div>
-        ))}
+        <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>~{randomAuthor}</div>
 
     </main>
   );
