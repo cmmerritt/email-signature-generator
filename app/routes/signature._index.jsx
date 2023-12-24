@@ -15,9 +15,10 @@ export const loader = async () => {
     }
   );
 
-  return json({
-    quoteRes: await quoteRes.json()
-  });
+  return json(
+    {quoteRes: await quoteRes.json()},
+    {"author": randomAuthor}
+  );
 };
 
 export default function Signature() {
@@ -27,12 +28,14 @@ export default function Signature() {
       <h1>Your New Email Signature</h1>
 
         {quoteRes.map((quote) => (
+          <>
           <div style={{ fontFamily: "Papyrus", fontSize: "2em" }}>
               {quote.quote}
           </div>
+          <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>~{quote.author}</div>
+          </>
+          
         ))}
-
-        <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>~{randomAuthor}</div>
 
     </main>
   );
