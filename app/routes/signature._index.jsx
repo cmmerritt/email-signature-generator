@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 
 const authors = ['Buddha', 'Mark Twain', 'Harriet Tubman', 'Marilyn Monroe', 'Albert Einstein', 'Wayne Gretzky', 'Wayne Gretzky ~Michael Scott', 'Susan B. Anthony', 'John F. Kennedy, Jr.', 'Helen Keller', 'Shaquille O\'Neal', 'Lao Tzu', 'Socrates', 'Leonardo da Vinci', 'Benjamin Franklin', 'Pope John Paul II', 'Beyonce', 'Martin Luther King, Jr.', 'Abraham Lincoln', 'W. E. B. DuBois', 'Oscar Wilde', 'Walt Disney', 'Kurt Vonnegut', 'Confucius', 'Maya Angelou', 'William Shakespeare', 'Virginia Woolf', 'Winston Churchill', 'Ayn Rand', 'Friedrich Nietzsche', 'Marie Antoinette', 'Barack Obama', 'Gandalf', 'Snoop Dogg'];
 
-let randomAuthor = authors[Math.floor(Math.random()*authors.length)];
+//let randomAuthor = authors[Math.floor(Math.random()*authors.length)];
 
 export const loader = async () => {
   const quoteRes = await fetch(
@@ -15,20 +15,25 @@ export const loader = async () => {
     }
   );
 
+  let randomAuthor = authors[Math.floor(Math.random()*authors.length)];
+
   return json({
-    quoteRes: await quoteRes.json()
+    quoteRes: await quoteRes.json(),
+    randomAuthor: randomAuthor
   });
 };
 
 export default function Signature() {
-  const { quoteRes } = useLoaderData();
+  let { quoteRes, randomAuthor } = useLoaderData();
+  console.log(quoteRes);
+  console.log(randomAuthor);
   return (
     <main>
       <h1>Your New Email Signature</h1>
 
         {quoteRes.map((quote) => (
           <div style={{ fontFamily: "Papyrus", fontSize: "2em" }}>
-              {quote.quote}
+              {quote.quote} 
           </div>
         ))}
 
