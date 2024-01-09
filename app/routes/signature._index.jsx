@@ -1,5 +1,6 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Form } from "@remix-run/react";
+import { useState } from "react";
 
 const authors = [
 'Abraham Lincoln',
@@ -13,6 +14,7 @@ const authors = [
 'Benjamin Franklin',
 'Beyoncé',
 'Bob Dylan',
+'Bruce Lee',
 'Bruce Springsteen',
 'Buddha',
 'Charles Darwin',
@@ -38,6 +40,7 @@ const authors = [
 'Jane Austen',
 'Jay-Z',
 'Jean-Paul Sartre',
+'Joan Rivers',
 'John F. Kennedy, Jr.',
 'John Lennon',
 'Julius Caesar',
@@ -98,7 +101,7 @@ export const loader = async () => {
     }
   );
 
-  let randomAuthor = authors[Math.floor(Math.random()*authors.length)];
+  const randomAuthor = authors[Math.floor(Math.random()*authors.length)];
 
   return json({
     quoteRes: await quoteRes.json(),
@@ -107,30 +110,55 @@ export const loader = async () => {
 };
 
 export default function Signature() {
-  let { quoteRes, randomAuthor } = useLoaderData();
+  const { quoteRes, randomAuthor } = useLoaderData();
+  const [userFont, setUserFont] = useState("Times New Roman");
+
   let authorMatch = false;
   if (quoteRes[0].author == randomAuthor) {
     authorMatch = true;
   };
-  console.log(quoteRes[0].author, randomAuthor)
+
+  const handleChange = (e) => {
+    setUserFont(e.target.value);
+  };
+
   return (
     <main>
       <h1>Your New Email Signature</h1>
 
-
-        <div style={{ fontFamily: "Papyrus", fontSize: "2em" }}>
+        {/* <div style={{ fontFamily: "Papyrus", fontSize: "2em" }}>
               {quoteRes[0].quote} 
           </div>
 
         <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
               ~{randomAuthor}
-          </div>
+          </div> */}
+
+        <div style={{ fontFamily: `${userFont}`, fontSize: "2em" }}>
+              {quoteRes[0].quote} 
+        </div>
+
+        <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
+              ~{randomAuthor}
+        </div>
 
         { authorMatch && 
           <div>
-            Whoa! This is the real author!
+            Whoa! This is the real author! (Allegedly.)
           </div>
         }
+
+      <br />
+
+      <Form method="post" className="font-form">
+        Choose your font!
+        <br />
+        <select name="font-dropdown" id="font-dropdown" onChange={handleChange}>
+          <option value="choose">---Choose font---</option>
+          <option value="Papyrus">Papyrus</option>
+          <option value="Cursive">Cursive</option>
+        </select>
+      </Form>
 
     </main>
   );
