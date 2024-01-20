@@ -1,8 +1,8 @@
 import { json } from "@remix-run/node";
 import { useLoaderData, Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
-import { getSignatures } from "../models/signature.server";
-import { getMaxOffset, getGiphy } from "../models/giphy.server";
+import { getSignatures } from "../models/signature.server.js";
+import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
 
 const authors = [
 'Abraham Lincoln',
