@@ -1,6 +1,8 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, Form } from "@remix-run/react";
+import { useLoaderData, Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
+import { getSignatures } from "../models/signature.server";
+import { getMaxOffset, getGiphy } from "../models/giphy.server";
 
 const authors = [
 'Abraham Lincoln',
@@ -70,6 +72,7 @@ const authors = [
 'Saint Augustine',
 'Serena Williams',
 "Shaquille O\'Neal",
+'Simone de Beauvoir',
 'Snoop Dogg',
 'Socrates',
 'Stephen King',
@@ -92,29 +95,37 @@ const authors = [
 ];
 
 export const loader = async () => {
-  const quoteRes = await fetch(
-    `${process.env.API_NINJAS_QUOTES_BASE_PATH}/`,
-    {
-      headers: {
-        "X-Api-Key": `${process.env.API_NINJAS_KEY}`,
-      },
-    }
-  );
+
+  const quoteRes = await getSignatures();
+
+  let quoteCategory = quoteRes.signatures[0].category;
+
+  if(quoteCategory == undefined) {
+    quoteCategory = "fun";
+  }
+
+  let maxOffset = await getMaxOffset(quoteCategory);
+
+  const gifRes = await getGiphy(quoteCategory, maxOffset);
 
   const randomAuthor = authors[Math.floor(Math.random()*authors.length)];
 
   return json({
-    quoteRes: await quoteRes.json(),
+    quoteRes: quoteRes,
+    maxOffset: maxOffset,
+    gifUrl: gifRes,
     randomAuthor: randomAuthor
   });
 };
 
 export default function Signature() {
-  const { quoteRes, randomAuthor } = useLoaderData();
+  const { quoteRes, gifUrl, maxOffset, randomAuthor } = useLoaderData();
   const [userFont, setUserFont] = useState("Times New Roman");
 
+  const navigation = useNavigation();
+
   let authorMatch = false;
-  if (quoteRes[0].author == randomAuthor) {
+  if (quoteRes.signatures[0].author == randomAuthor) {
     authorMatch = true;
   };
 
@@ -122,31 +133,16 @@ export default function Signature() {
     setUserFont(e.target.value);
   };
 
+  console.log("quoteRes", quoteRes);
+  console.log("gifUrl", gifUrl);
+  console.log("maxOffset", maxOffset);
+
   return (
     <main>
+
       <h1>Your New Email Signature</h1>
 
-        {/* <div style={{ fontFamily: "Papyrus", fontSize: "2em" }}>
-              {quoteRes[0].quote} 
-          </div>
-
-        <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
-              ~{randomAuthor}
-          </div> */}
-
-        <div style={{ fontFamily: `${userFont}`, fontSize: "2em" }}>
-              {quoteRes[0].quote} 
-        </div>
-
-        <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
-              ~{randomAuthor}
-        </div>
-
-        { authorMatch && 
-          <div>
-            Whoa! This is the real author! (Allegedly.)
-          </div>
-        }
+      {navigation.state !== "idle" ? <div>Loading...</div> : null}
 
       <br />
 
@@ -159,6 +155,26 @@ export default function Signature() {
           <option value="Cursive">Cursive</option>
         </select>
       </Form>
+      
+
+      <div style={{ fontFamily: `${userFont}`, fontSize: "2em" }}>
+            {quoteRes.signatures[0].quote} 
+      </div>
+      <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
+            ~{randomAuthor}
+      </div>
+
+      { authorMatch && 
+        <div>
+          Whoa! This is the real author! (Allegedly.)
+        </div>
+      }
+
+      <br />
+
+      <div>
+        <img src={gifUrl}></img>
+      </div>
 
     </main>
   );
