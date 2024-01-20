@@ -8,6 +8,5 @@ export async function getSignatures() {
     }
   );
   const signatures = await response.json();
-  console.log("signatures from loader", signatures);
   return { signatures };
 }
