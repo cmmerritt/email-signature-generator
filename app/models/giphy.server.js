@@ -19,5 +19,4 @@ export async function getGiphy(quoteCategory, maxOffset) {
   const gif = await response.json();
   const gifRes = { gif };
   return gifRes.gif.data[0].images.original.url;
-  // return { gif };
 }
