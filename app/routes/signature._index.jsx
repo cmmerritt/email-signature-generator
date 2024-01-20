@@ -156,6 +156,7 @@ export default function Signature() {
         </select>
       </Form>
       
+      <br />
 
       <div style={{ fontFamily: `${userFont}`, fontSize: "2em" }}>
             {quoteRes.signatures[0].quote} 
