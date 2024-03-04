@@ -4,7 +4,9 @@ Well, as Socrates said,\* "Don't worry, be happy," because Email Signature Gener
 
 Generate a signature with the click of a button and choose your favorite font (Papyrus? Comic Sans?). 
 
-Coming soon: generate a GIF related to your quote's topic for that extra touch of professionalism.
+Now: generate a GIF related to your quote's topic for that extra touch of professionalism.
+
+Coming soon: button to effortlessly copy your quote and GIF, ready to paste into Outlook or your other favorite email program.
 
 Using Remix to learn how it works. This is my first Remix project, but as Shakespeare put it\*\*: “Shoot for the moon. Even if you miss, you’ll land among the stars.” 
 
