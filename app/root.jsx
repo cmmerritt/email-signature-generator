@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError
 } from "@remix-run/react";
 
 export const MetaFunctions = () => [{
@@ -13,6 +14,24 @@ export const MetaFunctions = () => [{
   title: "New Remix App",
   viewport: "width=device-width,initial-scale=1",
 }];
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <div>Ruh roh!</div>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export default function App() {
   return (
