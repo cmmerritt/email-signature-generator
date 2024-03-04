@@ -146,23 +146,24 @@ export default function Signature() {
 
       <br />
 
-    <FormControl fullWidth>
-      <InputLabel id="font-dropdown-label">Choose a font</InputLabel>
-      <Select
-        labelId="font-dropdown-label"
-        id="font-dropdown"
-        value={userFont}
-        label="Choose a font"
-        onChange={handleChange}
-        sx={{
-          width: 200,
-          height: 50,
-        }}
-      >
-        <MenuItem value="Papyrus">Papyrus</MenuItem>
-        <MenuItem value="Cursive">Cursive</MenuItem>
-      </Select>
-    </FormControl>
+      <FormControl fullWidth>
+        <InputLabel id="font-dropdown-label">Choose a font</InputLabel>
+        <Select
+          labelId="font-dropdown-label"
+          id="font-dropdown"
+          value="Times New Roman"
+          label="Choose a font"
+          onChange={handleChange}
+          sx={{
+            width: 200,
+            height: 50,
+          }}
+        >
+          <MenuItem value="Papyrus">Papyrus</MenuItem>
+          <MenuItem value="Cursive">Cursive</MenuItem>
+          <MenuItem value="Times New Roman">Times New Roman</MenuItem>
+        </Select>
+      </FormControl>
 
       <br />
 
