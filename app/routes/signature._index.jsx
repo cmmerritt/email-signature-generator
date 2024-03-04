@@ -1,7 +1,7 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, Form, useNavigation } from "@remix-run/react";
+import { useLoaderData, useNavigation } from "@remix-run/react";
 import { useState } from "react";
-import { Select, FormControl, InputLabel, MenuItem } from "@mui/material";
+import { Select, FormControl, InputLabel, MenuItem, Container, Box } from "@mui/material";
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
 
@@ -121,6 +121,7 @@ export const loader = async () => {
 export default function Signature() {
   const { quoteRes, gifUrl, maxOffset, randomAuthor } = useLoaderData();
   const [userFont, setUserFont] = useState("Times New Roman");
+  const [showAuthor, setShowAuthor] = useState(false);
 
   const navigation = useNavigation();
 
@@ -138,6 +139,7 @@ export default function Signature() {
   console.log("maxOffset", maxOffset);
 
   return (
+    <Container>
     <main>
       <h1>Your New Email Signature</h1>
       {navigation.state !== "idle" ? <div>Loading...</div> : null}
@@ -183,6 +185,9 @@ export default function Signature() {
         <img src={gifUrl}></img>
       </div>
 
+      <button onClick={() => setShowAuthor(prev => !prev)}>Click to reveal/hide the real author</button> {showAuthor && <Box>{quoteRes.signatures[0].author}</Box>}
+
     </main>
+    </Container>
   );
 }
