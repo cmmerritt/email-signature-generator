@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
 import { useLoaderData, Form, useNavigation } from "@remix-run/react";
 import { useState } from "react";
+import { Select, FormControl, InputLabel, MenuItem } from "@mui/material";
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
 
@@ -67,6 +68,7 @@ const authors = [
 'Pope John Paul II',
 'Queen Elizabeth II',
 'Ralph Waldo Emerson',
+'Richard Milhous Nixon',
 'Robin Williams',
 'Ruth Bader Ginsburg',
 'Saint Augustine',
@@ -76,6 +78,7 @@ const authors = [
 'Snoop Dogg',
 'Socrates',
 'Stephen King',
+'Steve Jobs',
 'Sylvia Plath',
 'Taylor Swift',
 'The Dalai Lama',
@@ -89,7 +92,6 @@ const authors = [
 'Walt Disney',
 'Walt Whitman',
 'Wayne Gretzky',
-'Wayne Gretzky ~Michael Scott',
 'William Shakespeare',
 'Winston Churchill'
 ];
@@ -97,9 +99,7 @@ const authors = [
 export const loader = async () => {
 
   const quoteRes = await getSignatures();
-
   let quoteCategory = quoteRes.signatures[0].category;
-
   if(quoteCategory == undefined) {
     quoteCategory = "fun";
   }
@@ -139,23 +139,29 @@ export default function Signature() {
 
   return (
     <main>
-
       <h1>Your New Email Signature</h1>
-
       {navigation.state !== "idle" ? <div>Loading...</div> : null}
 
       <br />
 
-      <Form method="post" className="font-form">
-        Choose your font!
-        <br />
-        <select name="font-dropdown" id="font-dropdown" onChange={handleChange}>
-          <option value="choose">---Choose font---</option>
-          <option value="Papyrus">Papyrus</option>
-          <option value="Cursive">Cursive</option>
-        </select>
-      </Form>
-      
+    <FormControl fullWidth>
+      <InputLabel id="font-dropdown-label">Choose a font</InputLabel>
+      <Select
+        labelId="font-dropdown-label"
+        id="font-dropdown"
+        value={userFont}
+        label="Choose a font"
+        onChange={handleChange}
+        sx={{
+          width: 200,
+          height: 50,
+        }}
+      >
+        <MenuItem value="Papyrus">Papyrus</MenuItem>
+        <MenuItem value="Cursive">Cursive</MenuItem>
+      </Select>
+    </FormControl>
+
       <br />
 
       <div style={{ fontFamily: `${userFont}`, fontSize: "2em" }}>
