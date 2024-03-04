@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { useState } from "react";
+import { Container } from "@mui/material";
 
 export function headers() {
   return {
@@ -9,17 +9,17 @@ export function headers() {
 
 export default function Index() {
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-
-    <div className="mx-auto mt-16 max-w-7xl text-center">
-      <Link
-        to="/signature"
-        className="text-xl text-blue-600 underline"
-      >
-        Generate a Signature!
-      </Link>
-    </div>
-
-    </main>
+    <Container>
+      <main style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+      <div className="mx-auto mt-16 max-w-7xl text-center">
+        <Link
+          to="/signature"
+          className="text-xl text-blue-600 underline"
+        >
+          Generate a Signature!
+        </Link>
+      </div>
+      </main>
+    </Container>
   );
 }
