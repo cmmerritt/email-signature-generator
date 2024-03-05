@@ -4,97 +4,7 @@ import { useState } from "react";
 import { Select, FormControl, InputLabel, MenuItem, Container, Box } from "@mui/material";
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
-
-const authors = [
-'Abraham Lincoln',
-'Albert Einstein',
-'Alexander the Great',
-'Alexandria Ocasio-Cortez',
-'Alice Walker',
-'Aristotle',
-'Ayn Rand',
-'Barack Obama',
-'Benjamin Franklin',
-'Beyoncé',
-'Bob Dylan',
-'Bruce Lee',
-'Bruce Springsteen',
-'Buddha',
-'Charles Darwin',
-'Charles Dickens',
-'Cleopatra',
-'Confucius',
-'Dolly Parton',
-'Dr. Phil',
-'Dwayne "The Rock" Johnson',
-'Eleanor Roosevelt',
-'Emily Dickinson',
-'Eminem',
-'Friedrich Nietzsche',
-'Gandalf',
-'George Eliot',
-'George Washington',
-'Harriet Tubman',
-'Helen Keller',
-'Hillary Clinton',
-'Homer',
-'Homer Simpson',
-'Jack Kerouac',
-'Jane Austen',
-'Jay-Z',
-'Jean-Paul Sartre',
-'Joan Rivers',
-'John F. Kennedy, Jr.',
-'John Lennon',
-'Julius Caesar',
-'Kesha',
-'Kurt Vonnegut',
-'Lao Tzu',
-'Leonardo da Vinci',
-'Lucius Annaeus Seneca',
-'Madonna',
-'Mahatma Gandhi',
-'Margaret Atwood',
-'Marie Antoinette',
-'Marilyn Monroe',
-'Mark Twain',
-'Martin Luther King, Jr.',
-'Maya Angelou',
-'Michelangelo',
-'Mother Teresa',
-'Muhammad Ali',
-'Oprah Winfrey',
-'Oscar Wilde',
-'Pope John Paul II',
-'Queen Elizabeth II',
-'Ralph Waldo Emerson',
-'Richard Milhous Nixon',
-'Robin Williams',
-'Ruth Bader Ginsburg',
-'Saint Augustine',
-'Serena Williams',
-"Shaquille O\'Neal",
-'Simone de Beauvoir',
-'Snoop Dogg',
-'Socrates',
-'Stephen King',
-'Steve Jobs',
-'Sylvia Plath',
-'Taylor Swift',
-'The Dalai Lama',
-'Thomas Aquinas',
-'Thomas Jefferson',
-'Toni Morrison',
-'Virgil',
-'Virginia Woolf',
-'Voltaire',
-'W. E. B. DuBois',
-'Walt Disney',
-'Walt Whitman',
-'Wayne Gretzky',
-'William Shakespeare',
-'Winston Churchill'
-];
+import authors from "../shared/authors.jsx";
 
 export const loader = async () => {
 
@@ -186,7 +96,7 @@ export default function Signature() {
         <img src={gifUrl}></img>
       </div>
 
-      <button onClick={() => setShowAuthor(prev => !prev)}>Click to reveal/hide the real author</button> {showAuthor && <Box>{quoteRes.signatures[0].author}</Box>}
+      <button onClick={() => setShowAuthor(true)}>Click to reveal the real author</button> {showAuthor && <Box>{quoteRes.signatures[0].author}</Box>}
 
     </main>
     </Container>
