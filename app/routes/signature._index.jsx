@@ -48,6 +48,10 @@ export default function Signature() {
     setUserColor(e.target.value);
   };
 
+  const refreshPage = () => { 
+    window.location.reload(); 
+  }
+
   return (
     <Container>
     <main>
@@ -121,6 +125,10 @@ export default function Signature() {
       </div>
 
       <Button variant="outlined" onClick={() => setShowAuthor(true)}>Click to reveal the real author</Button> {showAuthor && <Box>{quoteRes.signatures[0].author}</Box>}
+
+      <br />
+
+      <Button variant="outlined" onClick={ refreshPage }>Click to get a new quote</Button>
 
     </main>
     </Container>
