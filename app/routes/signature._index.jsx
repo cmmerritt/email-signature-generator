@@ -1,7 +1,7 @@
 import { json } from "@remix-run/node";
 import { useLoaderData, useNavigation } from "@remix-run/react";
 import { useState } from "react";
-import { Select, FormControl, InputLabel, MenuItem, Container, Box } from "@mui/material";
+import { Select, FormControl, InputLabel, MenuItem, Container, Box, Typography } from "@mui/material";
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
 import authors from "../shared/authors.jsx";
@@ -32,7 +32,6 @@ export default function Signature() {
   const { quoteRes, gifUrl, maxOffset, randomAuthor } = useLoaderData();
   const [userFont, setUserFont] = useState("Times New Roman");
   const [showAuthor, setShowAuthor] = useState(false);
-
   const navigation = useNavigation();
 
   let authorMatch = false;
@@ -40,13 +39,25 @@ export default function Signature() {
     authorMatch = true;
   };
 
-  const handleChange = (e) => {
+  const handleUserFontChange = (e) => {
     setUserFont(e.target.value);
+    // theme = themeFromFont(userFont);
+    // theme=(createTheme({
+    //   typography: {
+    //     fontFamily:
+    //       userFont,
+    //   }
+    // }));
+    // console.log("handleChange userFont", userFont);
+    // let themeFromFont = (createTheme({
+    //   typography: {
+    //     fontFamily: 
+    //       userFont,
+    //   }
+    // }));
+    // console.log("themeFromFont in handleChange", themeFromFont);
+    // return themeFromFont;
   };
-
-  console.log("quoteRes", quoteRes);
-  console.log("gifUrl", gifUrl);
-  console.log("maxOffset", maxOffset);
 
   return (
     <Container>
@@ -56,33 +67,35 @@ export default function Signature() {
 
       <br />
 
-      <FormControl fullWidth>
+      <FormControl>
         <InputLabel id="font-dropdown-label">Choose a font</InputLabel>
         <Select
           labelId="font-dropdown-label"
           id="font-dropdown"
-          value="Times New Roman"
+          value={userFont}
           label="Choose a font"
-          onChange={handleChange}
+          onChange={handleUserFontChange}
           sx={{
             width: 200,
             height: 50,
           }}
         >
-          <MenuItem value="Papyrus">Papyrus</MenuItem>
-          <MenuItem value="Cursive">Cursive</MenuItem>
-          <MenuItem value="Times New Roman">Times New Roman</MenuItem>
+          <MenuItem value={"Papyrus"} sx={{ fontFamily: "Papyrus" }}>Papyrus</MenuItem>
+          <MenuItem value={"Cursive"} sx={{ fontFamily: "Cursive" }}>Cursive</MenuItem>
+          <MenuItem value={"Times New Roman"} sx={{ fontFamily: "Times New Roman" }}>Times New Roman</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> 
 
       <br />
-
-      <div style={{ fontFamily: `${userFont}`, fontSize: "2em" }}>
+   
+      <Typography component={'span'}fontFamily={userFont}>
+        <div>
             {quoteRes.signatures[0].quote} 
-      </div>
-      <div style={{ fontFamily: "cursive", fontSize: "1.5em" }}>
+        </div>
+        <div>
             ~{randomAuthor}
-      </div>
+        </div>
+      </Typography>
 
       { authorMatch && 
         <div>

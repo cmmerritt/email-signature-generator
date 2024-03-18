@@ -1,5 +1,5 @@
-import { Link } from "@remix-run/react";
-import { Container } from "@mui/material";
+import { Link as RemixLink } from "@remix-run/react";
+import { Container, Link } from "@mui/material";
 
 export function headers() {
   return {
@@ -15,6 +15,7 @@ export default function Index() {
         <Link
           to="/signature"
           className="text-xl text-blue-600 underline"
+          component ={RemixLink}
         >
           Generate a Signature!
         </Link>
