@@ -1,7 +1,7 @@
 import { json } from "@remix-run/node";
 import { useLoaderData, useNavigation } from "@remix-run/react";
 import { useState } from "react";
-import { Select, FormControl, InputLabel, MenuItem, Container, Box, Typography } from "@mui/material";
+import { Select, FormControl, InputLabel, MenuItem, Button, Container, Box, Typography } from "@mui/material";
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
 import authors from "../shared/authors.jsx";
@@ -120,7 +120,7 @@ export default function Signature() {
         <img src={gifUrl}></img>
       </div>
 
-      <button onClick={() => setShowAuthor(true)}>Click to reveal the real author</button> {showAuthor && <Box>{quoteRes.signatures[0].author}</Box>}
+      <Button variant="outlined" onClick={() => setShowAuthor(true)}>Click to reveal the real author</Button> {showAuthor && <Box>{quoteRes.signatures[0].author}</Box>}
 
     </main>
     </Container>
