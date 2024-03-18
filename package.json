@@ -16,7 +16,6 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/material": "^5.15.12",
-    "@mui/styles": "^5.15.13",
     "@netlify/functions": "^2.0.0",
     "@netlify/remix-adapter": "^2.0.0",
     "@remix-run/react": "^2.3.1",
