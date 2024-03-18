@@ -31,6 +31,7 @@ export const loader = async () => {
 export default function Signature() {
   const { quoteRes, gifUrl, maxOffset, randomAuthor } = useLoaderData();
   const [userFont, setUserFont] = useState("Times New Roman");
+  const [userColor, setUserColor] = useState("Black");
   const [showAuthor, setShowAuthor] = useState(false);
   const navigation = useNavigation();
 
@@ -41,22 +42,10 @@ export default function Signature() {
 
   const handleUserFontChange = (e) => {
     setUserFont(e.target.value);
-    // theme = themeFromFont(userFont);
-    // theme=(createTheme({
-    //   typography: {
-    //     fontFamily:
-    //       userFont,
-    //   }
-    // }));
-    // console.log("handleChange userFont", userFont);
-    // let themeFromFont = (createTheme({
-    //   typography: {
-    //     fontFamily: 
-    //       userFont,
-    //   }
-    // }));
-    // console.log("themeFromFont in handleChange", themeFromFont);
-    // return themeFromFont;
+  };
+
+  const handleUserColorChange = (e) => {
+    setUserColor(e.target.value);
   };
 
   return (
@@ -86,9 +75,31 @@ export default function Signature() {
         </Select>
       </FormControl> 
 
+      <FormControl>
+        <InputLabel id="color-dropdown-label">Choose a color</InputLabel>
+        <Select
+          labelId="color-dropdown-label"
+          id="color-dropdown"
+          value={userColor}
+          label="Choose a color"
+          onChange={handleUserColorChange}
+          sx={{
+            width: 200,
+            height: 50,
+          }}
+        >
+          <MenuItem value={"Black"} sx={{ color: "Black" }}>Black</MenuItem>
+          <MenuItem value={"Blue"} sx={{ color: "Blue" }}>Blue</MenuItem>
+          <MenuItem value={"Purple"} sx={{ color: "Purple" }}>Purple</MenuItem>
+          <MenuItem value={"Orange"} sx={{ color: "Orange" }}>Orange</MenuItem>
+          <MenuItem value={"Pink"} sx={{ color: "Pink" }}>Pink</MenuItem>
+          <MenuItem value={"Red"} sx={{ color: "Red" }}>Red</MenuItem>
+        </Select>
+      </FormControl> 
+
       <br />
    
-      <Typography component={'span'}fontFamily={userFont}>
+      <Typography component={'span'} fontFamily={userFont} color={userColor}>
         <div>
             {quoteRes.signatures[0].quote} 
         </div>
