@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
-import { useLoaderData, useNavigation } from "@remix-run/react";
-import { useState } from "react";
+import { useNavigation, useLoaderData } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import { Select, FormControl, InputLabel, MenuItem, Button, Container, Box, Typography } from "@mui/material";
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
@@ -24,7 +24,7 @@ export const loader = async () => {
     quoteRes: quoteRes,
     maxOffset: maxOffset,
     gifUrl: gifRes,
-    randomAuthor: randomAuthor
+    randomAuthor: randomAuthor,
   });
 };
 
@@ -35,6 +35,15 @@ export default function Signature() {
   const [showAuthor, setShowAuthor] = useState(false);
   const navigation = useNavigation();
 
+  useEffect(() => {
+    if(window.localStorage.getItem("userFont")) {
+      setUserFont(window.localStorage.getItem("userFont"));
+    }
+    if(window.localStorage.getItem("userColor")) {
+      setUserColor(window.localStorage.getItem("userColor"));
+    }
+  }, [])
+
   let authorMatch = false;
   if (quoteRes.signatures[0].author == randomAuthor) {
     authorMatch = true;
@@ -42,10 +51,14 @@ export default function Signature() {
 
   const handleUserFontChange = (e) => {
     setUserFont(e.target.value);
+    window.localStorage.setItem("userFont", e.target.value);
+    console.log(localStorage.userFont);
   };
 
   const handleUserColorChange = (e) => {
     setUserColor(e.target.value);
+    window.localStorage.setItem("userColor", e.target.value);
+    console.log(localStorage.userColor);
   };
 
   const refreshPage = () => { 
