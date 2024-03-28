@@ -5,6 +5,7 @@ import { Select, FormControl, InputLabel, MenuItem, Button, Container, Box, Typo
 import { getSignatures } from "../models/signature.server.js";
 import { getMaxOffset, getGiphy } from "../models/giphy.server.js";
 import authors from "../shared/authors.jsx";
+import stopwords from "../shared/stopwords.jsx";
 
 export const loader = async () => {
 
@@ -65,6 +66,16 @@ export default function Signature() {
     window.location.reload(); 
   }
 
+  let quote = quoteRes.signatures[0].quote;
+  let quoteNoPunct = quote.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+  let quoteForToken = quoteNoPunct.replace(/\s{2,100}/g," ");
+  const tokens = quoteForToken.split(" ").filter((token) => {
+    token = token.toLowerCase();
+    return !stopwords.includes(token);
+  });
+  console.log("tokens", tokens);
+
+
   return (
     <Container>
     <main>
@@ -118,7 +129,7 @@ export default function Signature() {
    
       <Typography component={'span'} fontFamily={userFont} color={userColor}>
         <div>
-            {quoteRes.signatures[0].quote} 
+            {quote} 
         </div>
         <div>
             ~{randomAuthor}
