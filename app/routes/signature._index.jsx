@@ -30,7 +30,7 @@ export const loader = async () => {
 };
 
 export default function Signature() {
-  const { quoteRes, gifUrl, maxOffset, randomAuthor } = useLoaderData();
+  let { quoteRes, gifUrl, maxOffset, randomAuthor } = useLoaderData();
   const [userFont, setUserFont] = useState("Times New Roman");
   const [userColor, setUserColor] = useState("Black");
   const [showAuthor, setShowAuthor] = useState(false);
@@ -62,19 +62,44 @@ export default function Signature() {
     console.log(localStorage.userColor);
   };
 
+  // const handleNewCategoryChoice = async (e) => {
+  //   const newCategory = e.target.value;
+  //   let newMaxOffset = await getMaxOffset(newCategory);
+  //   let json = json({
+  //     newMaxOffset: newMaxOffset,
+  //   });
+  //   console.log(newMaxOffset); 
+  //   return newMaxOffset;
+  // }
+
+  const handleNewCategoryChoice = (e) => {
+    console.log('test', e.target.value);
+  }
+
   const refreshPage = () => { 
     window.location.reload(); 
   }
 
-  let quote = quoteRes.signatures[0].quote;
-  let quoteNoPunct = quote.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-  let quoteForToken = quoteNoPunct.replace(/\s{2,100}/g," ");
+  //return tokens
+  const quote = quoteRes.signatures[0].quote;
+  const quoteNoPunct = quote.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+  const quoteForToken = quoteNoPunct.replace(/\s{2,}/g," ");
   const tokens = quoteForToken.split(" ").filter((token) => {
     token = token.toLowerCase();
     return !stopwords.includes(token);
   });
   console.log("tokens", tokens);
 
+  // const quoteWords = quote.split(" ");
+  // let renderedQuote = [];
+  // for(let i = 0; i < quoteWords.length; i++) {
+  //   if(tokens.includes(quoteWords[i])) {
+  //     renderedQuote.push(<Button key={i} value={quoteWords[i]} onClick={handleNewCategoryChoice}>{quoteWords[i] }</Button>);
+  //   } else {
+  //     renderedQuote.push(<span key={i}>{quoteWords[i]} </span>);
+  //   }
+  // };
+  // console.log(renderedQuote);
 
   return (
     <Container>
