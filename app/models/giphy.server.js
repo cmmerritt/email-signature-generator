@@ -1,6 +1,6 @@
 export async function getMaxOffset(quoteCategory) {
   const response = await fetch(
-    `${process.env.API_GIPHY_BASE_PATH}?q=${quoteCategory}&api_key=${process.env.API_GIPHY_KEY}&limit=1&offset=0`
+    `${process.env.API_GIPHY_BASE_PATH}?q=${quoteCategory}&api_key=${process.env.API_GIPHY_KEY}&limit=1&offset=0&rating=pg-13`
   );
   const offset = await response.json();
   const offsetRes = { offset };
@@ -8,15 +8,16 @@ export async function getMaxOffset(quoteCategory) {
   if(maxOffset > 4999) {
     maxOffset = 4999;
   }
+  console.log('getMaxOffset function', quoteCategory);
   return maxOffset;
-}
+};
 
 export async function getGiphy(quoteCategory, maxOffset) {
   const randomOffset = Math.floor(Math.random() * maxOffset);
   const response = await fetch(
-    `${process.env.API_GIPHY_BASE_PATH}?q=${quoteCategory}&api_key=${process.env.API_GIPHY_KEY}&limit=1&offset=${randomOffset}`
+    `${process.env.API_GIPHY_BASE_PATH}?q=${quoteCategory}&api_key=${process.env.API_GIPHY_KEY}&limit=1&offset=${randomOffset}&rating=pg-13`
   );
   const gif = await response.json();
   const gifRes = { gif };
   return gifRes.gif.data[0].images.original.url;
-}
+};
