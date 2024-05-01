@@ -8,7 +8,6 @@ export async function getMaxOffset(quoteCategory) {
   if(maxOffset > 4999) {
     maxOffset = 4999;
   }
-  console.log('getMaxOffset function', quoteCategory);
   return maxOffset;
 };
 

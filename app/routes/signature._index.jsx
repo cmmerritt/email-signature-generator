@@ -139,9 +139,10 @@ export default function Signature() {
   return (
     <Container>
     <main>
-      <h1>Your New Email Signature</h1>
-      {navigation.state !== "idle" ? <div>Loading...</div> : null}
-
+      <Typography fontFamily={"Arial"}>
+        <h1>Your New Email Signature</h1>
+        {navigation.state !== "idle" ? <div>Loading...</div> : null}
+      </Typography>
       <br />
 
       <FormControl>
