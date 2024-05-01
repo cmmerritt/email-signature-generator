@@ -59,13 +59,11 @@ export default function Signature() {
   const handleUserFontChange = (e) => {
     setUserFont(e.target.value);
     window.localStorage.setItem("userFont", e.target.value);
-    console.log(localStorage.userFont);
   };
 
   const handleUserColorChange = (e) => {
     setUserColor(e.target.value);
     window.localStorage.setItem("userColor", e.target.value);
-    console.log(localStorage.userColor);
   };
 
   const getNewMaxOffset = async (category) => {
@@ -80,12 +78,10 @@ export default function Signature() {
     } else if(maxOffset < 1) {
       maxOffset = 1;
     }
-    console.log('maxOffset', maxOffset);
     return maxOffset;
   };
 
   const getNewGiphy = async (category, offset) => {
-    console.log('category in getNewGiphy', category);
     let gifRes = {};
     let randomOffset = 0;
     if(offset == 1) {
@@ -93,14 +89,14 @@ export default function Signature() {
     } else {
       randomOffset = Math.floor(Math.random() * offset);
     }
-    console.log(randomOffset, 'randomOffset');
+    //console.log(randomOffset, 'randomOffset');
     const response = await fetch(
       `${API_GIPHY_BASE_PATH}?q=${category}&api_key=${API_GIPHY_KEY}&limit=1&offset=${randomOffset}&rating=pg-13`
     );
     const gif = await response.json();
     gifRes = { gif };
-    console.log('gifRes of category', gifRes);
-    console.log(gifRes.gif.data.length == 0);
+    //console.log('gifRes of category', gifRes);
+    //console.log(gifRes.gif.data.length == 0);
     if(gifRes.gif.data.length == 0) {
       return getNewGiphy('fun', 4999);
     }
@@ -108,7 +104,7 @@ export default function Signature() {
   };
 
   const handleNewCategoryChoice = async (e) => {
-    console.log('test', e.target.value);
+    //console.log('test', e.target.value);
     let cat = e.target.value;
     let catNoPunct = cat.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     const offset = await getNewMaxOffset(catNoPunct);
@@ -134,9 +130,9 @@ export default function Signature() {
   for(let i = 0; i < quoteWords.length; i++) {
     const wordNoPunct = quoteWords[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     if(tokens.includes(wordNoPunct)) {
-      renderedQuote.push(<Button key={i} style={{ fontWeight: 'bold' }} value={quoteWords[i]} onClick={handleNewCategoryChoice}>{quoteWords[i]} </Button>);
+      renderedQuote.push(<Button key={i} sx={{ fontWeight: 'bold', color: `${userColor}`, fontFamily: `${userFont}`, textTransform: 'none', m: '1', p: '0', minWidth: '0' }} value={quoteWords[i]} onClick={handleNewCategoryChoice}>{quoteWords[i]}</Button>);
     } else {
-      renderedQuote.push(<span key={i}>{quoteWords[i]} </span>);
+      renderedQuote.push(<span key={i} sx={{ fontWeight: 'bold', color: `${userColor}`, fontFamily: `${userFont}`}}>{quoteWords[i]} </span>);
     }
   };
 
@@ -191,7 +187,7 @@ export default function Signature() {
 
       <br />
    
-      <Typography component={'span'} fontFamily={userFont} color={userColor}>
+      <Typography component={'span'} fontFamily={userFont} color={userColor} m={1}>
         <div>{renderedQuote}</div>
         <div>
             ~{randomAuthor}
