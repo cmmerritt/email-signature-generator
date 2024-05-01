@@ -130,18 +130,19 @@ export default function Signature() {
   for(let i = 0; i < quoteWords.length; i++) {
     const wordNoPunct = quoteWords[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
     if(tokens.includes(wordNoPunct)) {
-      renderedQuote.push(<span key={i} sx={{ fontWeight: 'bold', color: `${userColor}`, fontFamily: `${userFont}`, textTransform: 'none', m: '1', p: '0', minWidth: '0' }} value={quoteWords[i]} onClick={handleNewCategoryChoice}>{quoteWords[i]} </span>);
+      renderedQuote.push(<span key={i} value={quoteWords[i]} onClick={handleNewCategoryChoice}>{quoteWords[i]} </span>);
     } else {
-      renderedQuote.push(<span key={i} sx={{ color: `${userColor}`, fontFamily: `${userFont}`}}>{quoteWords[i]} </span>);
+      renderedQuote.push(<span key={i}>{quoteWords[i]} </span>);
     }
   };
 
   return (
     <Container>
     <main>
-      <h1>Your New Email Signature</h1>
-      {navigation.state !== "idle" ? <div>Loading...</div> : null}
-
+      <Typography fontFamily={"Arial"}>
+        <h1>Your New Email Signature</h1>
+        {navigation.state !== "idle" ? <div>Loading...</div> : null}
+      </Typography>
       <br />
 
       <FormControl>
