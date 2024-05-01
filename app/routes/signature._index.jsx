@@ -142,6 +142,7 @@ export default function Signature() {
       <Typography fontFamily={"Arial"}>
         <h1>Your New Email Signature</h1>
         {navigation.state !== "idle" ? <div>Loading...</div> : null}
+        <span><i>Click on a keyword in the quote to get a new gif based on that keyword.</i></span>
       </Typography>
       <br />
 
